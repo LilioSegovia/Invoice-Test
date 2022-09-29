@@ -53,11 +53,12 @@ function App() {
     { id: uuidv4(), item: "", quantity: "", rate: "", amount: "" },
   ]);
   const handleDate = (newDate) => {
-    //setDate(newDate);
-    console.log(newDate)
+    let formattedDate = JSON.stringify(newDate)
+    setDate(formattedDate)
   };
   const handleDueDate = (newDueDate) => {
-    setDueDate(newDueDate);
+    let formattedDueDate = JSON.stringify(newDueDate)
+    setDueDate(formattedDueDate);
   };
 
 
@@ -130,10 +131,9 @@ function App() {
                   <Paper style={paperStyle}>
                     <InvoicePreview
                       billTo={billTo}
-                      
+                      inputFields={inputFields}
                       paymentTerms={paymentTerms}
                       shipTo={shipTo}
-                      
                       poNumber={poNumber}
                       invoiceNumber={invoiceNumber}
                       terms={terms}
@@ -143,9 +143,8 @@ function App() {
                       total={total}
                       amountPaid={amountPaid}
                       balanceDue={balanceDue}
-                      setDate={setDate}
-                      handleDate={handleDate}
-                      handleDueDate={handleDueDate}
+                      date={date}
+                      dueDate={dueDate}
                     />
                   </Paper>
                 </Grid>
@@ -209,12 +208,13 @@ function App() {
                       }}
                     />
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      
                       <DatePicker
                       views={['day']}
                       helperText={null} 
                         label="Date"
                         value={date}
-                        onChange={(event) => handleDate(event.target.value)}
+                        onChange={(newDate) => handleDate(newDate)}
                         renderInput={(params) => (
                           <TextField
                             sx={{ width: 235, mt: 1 }}
@@ -281,7 +281,7 @@ function App() {
                       helperText={null} 
                         label="Due Date"
                         value={dueDate}
-                        onChange={handleDueDate}
+                        onChange={(newDueDate) => handleDueDate(newDueDate)}
                         renderInput={(params) => (
                           <TextField
                             sx={{ width: 235, mt: 1 }}

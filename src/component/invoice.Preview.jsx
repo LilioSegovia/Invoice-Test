@@ -4,6 +4,7 @@ import {
   InputBase,
   Container,
   TextField,
+  InputAdornment,
 } from "@mui/material";
 
 import * as React from "react";
@@ -22,12 +23,9 @@ const InvoicePreview = ({
   total,
   amountPaid,
   balanceDue,
-  item,
-  quantity,
-  rate,
-  amount,
-  handleDate,
-  handleDueDate
+  date,
+  dueDate,
+  inputFields
 }) => {
   return (
     <div>
@@ -42,9 +40,9 @@ const InvoicePreview = ({
               INVOICE
             </Typography>
 
-            <Typography># {invoiceNumber}</Typography>
+            <Typography sx={{ mt: 1, ml: 3}}># {invoiceNumber}</Typography>
 
-            <Typography sx={{ mt: 1 }}>Date: {handleDate}</Typography>
+            <Typography sx={{ mt: 1, ml: 3}}>Date: {date}</Typography>
             <Typography sx={{ mt: 1 }}>{paymentTerms}</Typography>
           </Grid>
         </Grid>
@@ -59,7 +57,7 @@ const InvoicePreview = ({
             </Typography>
           </Grid>
           <Grid item mt={1} justify="flex-end" sx={{ ml: "auto" }}>
-            <Typography>Due Date: {handleDueDate}</Typography>
+            <Typography>Due Date: {dueDate}</Typography>
 
             <Typography sx={{ mt: 1 }}>{poNumber}</Typography>
           </Grid>
@@ -73,50 +71,67 @@ const InvoicePreview = ({
               size="small"
               defaultValue="Item"
               variant="outlined"
-              sx={{ width: 360 }}
+              sx={{ width: 400 }}
             />
             <TextField
-              sx={{ width: 120 }}
+              sx={{ width: 100 }}
               size="small"
               defaultValue="Quantity"
             />
-            <TextField sx={{ width: 120 }} size="small" defaultValue="Rate" />
-            <TextField sx={{ width: 120 }} size="small" defaultValue="Amount" />
+            <TextField sx={{ width: 100 }} size="small" defaultValue="Rate" />
+            <TextField sx={{ width: 100 }} size="small" defaultValue="Amount" />
           </Grid>
           <Grid item pl={2}>
-            <TextField
-              placeholder="Description of Service of product"
-              size="small"
-              type="text"
-              name="item"
-              sx={{ width: 360 }}
-            />
-            {item}
+          {inputFields.map((inputField) => (
+                        <div key={inputField.id}>
+                          <TextField
+                            placeholder="Description of Service of product"
+                            size="small"
+                            type="text"
+                            name="item"
+                            value={inputField.item}
+                            
+                            sx={{ width: 400 }}
+                          />
 
-            <TextField
-              size="small"
-              type="text"
-              name="quantity"
-              sx={{ width: 120 }}
-            />
-            {quantity}
+                          <TextField
+                            size="small"
+                            type="text"
+                            name="quantity"
+                            sx={{ width: 100 }}
+                            value={inputField.quantity}
+                           
+                            
+                          />
 
-            <TextField
-              size="small"
-              type="text"
-              name="rate"
-              sx={{ width: 120 }}
-            />
-            {rate}
+                          <TextField
+                            size="small"
+                            type="text"
+                            name="rate"
+                            sx={{ width: 100 }}
+                            value={inputField.rate}
+                            
+                            
+                            InputProps={{
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  $
+                                </InputAdornment>
+                              ),
+                            }}
+                          />
 
-            <TextField
-              size="small"
-              type="text"
-              name="amount"
-              sx={{ width: 120 }}
-            />
-            {amount}
-          </Grid>
+                          <TextField
+                            size="small"
+                            type="text"
+                            name="amount"
+                            sx={{ width: 100 }}
+                            value={inputField.amount}
+                            
+                          />
+                          </div>
+                          ))}
+                          </Grid>
         </Grid>
         <Grid pl={3}></Grid>
         <Grid container mt={5}>
